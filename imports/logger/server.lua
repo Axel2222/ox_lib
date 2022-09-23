@@ -5,8 +5,9 @@ if key ~= '' then
 	local resourceName = GetCurrentResourceName()
 	key = key:gsub("[\'\"]", '')
 
-	function lib.logger(source, event, message, ...)
+	function lib.logger(source, event, message, status, ...)
 		local data = json.encode({
+            status = status,
 			hostname = resourceName,
 			service = event,
 			message = message,
