@@ -21,6 +21,7 @@ const SliderField: React.FC<Props> = (props) => {
       <Box mb={3} key={`slider-${props.index}`}>
         <Label label={props.row.label} description={props.row.description} />
         <Slider
+          colorScheme="purple"
           onChangeEnd={(val: number) => props.handleChange(val, props.index)}
           onChange={(val: number) => setSliderValue(val)}
           defaultValue={props.row.default || props.row.min || 0}

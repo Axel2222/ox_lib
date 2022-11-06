@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const InfoTooltip: React.FC<{ description: string }> = ({ description }) => {
   return (
-    <Tooltip label={description} placement="top" hasArrow arrowSize={4} maxW={220}>
+    <Tooltip bg="purple.200" label={description} placement="top" hasArrow arrowSize={4} maxW={220}>
       <Box
         borderRadius="full"
-        bg="whiteAlpha.200"
+        bg="purple.400"
         p={0.5}
         w={18}
         h={18}

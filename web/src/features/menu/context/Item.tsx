@@ -16,7 +16,7 @@ import { Option, ContextMenuProps } from '../../../interfaces/context';
 import { fetchNui } from '../../../utils/fetchNui';
 
 const openMenu = (id: string | undefined) => {
-  fetchNui<ContextMenuProps>('openContext', { id: id, back: false });
+  fetchNui<ContextMenuProps>('openContext', {id: id, back: false});
 };
 
 const clickContext = (id: string) => {
@@ -26,59 +26,52 @@ const clickContext = (id: string) => {
 const Item: React.FC<{
   option: [string, Option];
 }> = ({ option }) => {
-  const button = option[1];
-  const buttonKey = option[0];
-
   return (
     <>
       <Popover placement="right-start" trigger="hover" eventListeners={{ scroll: true }} isLazy>
         <PopoverTrigger>
           <Box
-            bg={button.disabled ? 'gray.600' : 'gray.800'}
+            bg="#202128"
             borderRadius="md"
             h="fit-content"
             w="100%"
             p={2}
             mb={1}
-            fontFamily="Poppins"
+            fontFamily="Roboto"
             fontSize="md"
             transition="300ms"
-            _hover={{ bg: !button.disabled && 'gray.700' }}
-            cursor={(button.disabled && 'not-allowed') || undefined}
+            _hover={{ bg: '#313238' }}
           >
             <Flex
               w="100%"
               alignItems="center"
-              color={button.disabled ? '#718096' : undefined}
-              onClick={() =>
-                !button.disabled ? (button.menu ? openMenu(button.menu) : clickContext(buttonKey)) : null
-              }
+              onClick={() => (option[1].menu ? openMenu(option[1].menu) : clickContext(option[0]))}
             >
-              {button?.icon && (
+              {option[1]?.icon && (
                 <FontAwesomeIcon
                   fixedWidth
-                  icon={button.icon}
+                  icon={option[1].icon}
                   fontSize={20}
                   style={{
                     marginRight: 10,
                     justifySelf: 'center',
-                    color: button.iconColor,
+                    color: option[1].iconColor,
                   }}
                 />
               )}
               <Box>
-                <Box paddingBottom={button.description ? 1 : 0}>
-                  <Text w="100%" fontWeight="medium" color={button.disabled ? '#718096' : undefined}>
-                    {button.title ? button.title : buttonKey}
+                <Box paddingBottom={option[1].description ? 1 : 0}>
+                  <Text w="100%" fontWeight="medium">
+                    {option[1].title ? option[1].title : option[0]}
                   </Text>
                 </Box>
-                {button.description && (
-                  <Box paddingBottom={1} color={button.disabled ? '#718096' : undefined}>
-                    <Text>{button.description}</Text>
+                {option[1].description && (
+                  <Box paddingBottom={1}>
+                    <Text>{option[1].description}</Text>
                   </Box>
                 )}
               </Box>
-              {(button.menu || button.arrow) && button.arrow !== false && (
+              {(option[1].menu || option[1].arrow) && option[1].arrow !== false && (
                 <>
                   <Spacer />
                   <Box alignSelf="center" justifySelf="center" mr={4} fontSize="xl">
@@ -88,10 +81,10 @@ const Item: React.FC<{
               )}
             </Flex>
             <Portal>
-              {!button.disabled && (button.metadata || button.image) && (
+              {(option[1].metadata || option[1].image) && (
                 <PopoverContent
-                  fontFamily="Poppins"
-                  bg="gray.800"
+                  fontFamily="Roboto"
+                  bg="#202128"
                   outline="none"
                   border="none"
                   w="fit-content"
@@ -99,17 +92,17 @@ const Item: React.FC<{
                 >
                   <PopoverBody>
                     <>
-                      {button.image && <Image src={button.image} />}
-                      {Array.isArray(button.metadata) ? (
-                        button.metadata.map((metadata: string | { label: string; value: any }, index: number) => (
+                      {option[1].image && <Image borderRadius="10px" src={option[1].image} />}
+                      {Array.isArray(option[1].metadata) ? (
+                        option[1].metadata.map((metadata: string | { label: string; value: any }, index: number) => (
                           <Text key={`context-metadata-${index}`}>
                             {typeof metadata === 'string' ? `${metadata}` : `${metadata.label}: ${metadata.value}`}
                           </Text>
                         ))
                       ) : (
                         <>
-                          {typeof button.metadata === 'object' &&
-                            Object.entries(button.metadata).map((metadata: { [key: string]: any }, index) => (
+                          {typeof option[1].metadata === 'object' &&
+                            Object.entries(option[1].metadata).map((metadata: { [key: string]: any }, index) => (
                               <Text key={`context-metadata-${index}`}>
                                 {metadata[0]}: {metadata[1]}
                               </Text>

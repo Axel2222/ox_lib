@@ -1,19 +1,28 @@
 if not lib.player then lib.player() end
 
 return function(resource)
-	local QBCore = exports[resource]:GetCoreObject()
-	-- Eventually add some functions here to simplify the creation of framework-agnostic resources.
+	local Framework = exports[resource]:GetCoreObject()
+	local PlayerData
+
+	RegisterNetEvent('Framework:Client:OnPlayerLoaded', function()
+		PlayerData = Framework.Functions.GetPlayerData()
+	end)
+
+	RegisterNetEvent('Framework:Client:OnJobUpdate', function(job)
+		PlayerData.job = job
+	end)
+
+	RegisterNetEvent('Framework:Client:OnGangUpdate', function(gang)
+		PlayerData.gang = gang
+	end)
 
 	local CPlayer = lib.getPlayer()
 
-	function lib.getPlayer(player)
-		player = type(player) == 'table' and player.playerId or QBCore.Functions.GetPlayer(player)
-
-		if not player then
-			error(("'%s' is not a valid player"):format(player))
-		end
-
-		return setmetatable(player, CPlayer)
+	function lib.getPlayer()
+		return setmetatable({
+			id = cache.playerId,
+			serverId = cache.serverId,
+		}, CPlayer)
 	end
 
 	local groups = { 'job', 'gang' }
@@ -23,7 +32,7 @@ return function(resource)
 
 		if type == 'string' then
 			for i = 1, #groups do
-				local data = self.PlayerData[groups[i]]
+				local data = PlayerData[groups[i]]
 
 				if data.name == filter then
 					return data.name, data.grade.level
@@ -34,7 +43,7 @@ return function(resource)
 
 			if tabletype == 'hash' then
 				for i = 1, #groups do
-					local data = self.PlayerData[groups[i]]
+					local data = PlayerData[groups[i]]
 					local grade = filter[data.name]
 
 					if grade and grade <= data.grade.level then
@@ -46,7 +55,7 @@ return function(resource)
 					local group = filter[i]
 
 					for j = 1, #groups do
-						local data = self.PlayerData[groups[j]]
+						local data = PlayerData[groups[j]]
 
 						if data.name == group then
 							return data.name, data.grade.level
@@ -57,5 +66,7 @@ return function(resource)
 		end
 	end
 
-	return QBCore
+	player = lib.getPlayer()
+
+	return Framework
 end

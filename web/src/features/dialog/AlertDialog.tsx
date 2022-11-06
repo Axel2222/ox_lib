@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown';
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { fetchNui } from '../../utils/fetchNui';
 import { useLocales } from '../../providers/LocaleProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface AlertProps {
   header: string;
@@ -55,7 +56,7 @@ const AlertDialog: React.FC = () => {
         onEsc={() => closeAlert('cancel')}
       >
         <AlertDialogOverlay />
-        <AlertDialogContent fontFamily="Inter">
+        <AlertDialogContent fontFamily="Inter" bg='#202128' borderRadius='15px'>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {dialogData.header}
           </AlertDialogHeader>
@@ -64,11 +65,11 @@ const AlertDialog: React.FC = () => {
           </AlertDialogBody>
           <AlertDialogFooter>
             {dialogData.cancel && (
-              <Button onClick={() => closeAlert('cancel')} mr={3}>
+              <Button leftIcon={<FontAwesomeIcon icon="circle-xmark" />} colorScheme="gray" onClick={() => closeAlert('cancel')} mr={3}>
                 {locale.ui.cancel}
               </Button>
             )}
-            <Button colorScheme={dialogData.cancel ? 'blue' : undefined} onClick={() => closeAlert('confirm')}>
+            <Button leftIcon={<FontAwesomeIcon icon="circle-check" />} colorScheme="green" onClick={() => closeAlert('confirm')}>
               {locale.ui.confirm}
             </Button>
           </AlertDialogFooter>

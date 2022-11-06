@@ -18,6 +18,7 @@ const CheckboxField: React.FC<Props> = (props) => {
     <>
       <Box mb={3} key={`checkbox-${props.index}`}>
         <Checkbox
+          colorScheme="purple"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.handleChange(e.target.checked, props.index)}
           defaultChecked={props.row.checked}
         >

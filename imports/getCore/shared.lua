@@ -5,7 +5,7 @@
 
 local Core = {
 	Ox = 'ox_core',
-	QB = 'qb-core',
+	QB = 'no-core',
 	ESX = 'es_extended',
 }
 

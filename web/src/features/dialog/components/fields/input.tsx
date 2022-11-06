@@ -26,6 +26,7 @@ const InputField: React.FC<Props> = (props) => {
             <InputLeftElement pointerEvents="none" children={<FontAwesomeIcon icon={props.row.icon} fixedWidth />} />
           )}
           <Input
+            focusBorderColor="purple.200"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.handleChange(e.target.value, props.index)}
             placeholder={props.row.placeholder}
             defaultValue={props.row.default}

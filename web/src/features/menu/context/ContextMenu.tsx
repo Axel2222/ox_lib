@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchNui } from '../../../utils/fetchNui';
 
 const openMenu = (id: string | undefined) => {
-  fetchNui<ContextMenuProps>('openContext', { id: id, back: true });
+  fetchNui<ContextMenuProps>('openContext', {id: id, back: true});
 };
 
 const ContextMenu: React.FC = () => {
@@ -48,14 +48,14 @@ const ContextMenu: React.FC = () => {
   });
 
   return (
-    <Flex position="absolute" w="75%" h="80%" justifyContent="flex-end" alignItems="center">
+    <Flex position="absolute" w="75%" h="100%" justifyContent="flex-end" alignItems="center">
       <ScaleFade in={visible} unmountOnExit>
         <Box w="xs" h={580}>
           <Flex justifyContent="center" alignItems="center" mb={3}>
             {contextMenu.menu && (
               <Flex
                 borderRadius="md"
-                bg="gray.800"
+                bg="#202128"
                 flex="1 15%"
                 alignSelf="stretch"
                 textAlign="center"
@@ -70,15 +70,15 @@ const ContextMenu: React.FC = () => {
                 <FontAwesomeIcon icon="chevron-left" />
               </Flex>
             )}
-            <Box borderRadius="md" bg="gray.800" flex="1 85%">
-              <Text fontFamily="Poppins" fontSize="md" p={2} textAlign="center" fontWeight="light">
+            <Box borderRadius="md" bg="#202128" flex="1 85%">
+              <Text fontFamily="Roboto" fontSize="md" p={2} textAlign="center" fontWeight="light">
                 {contextMenu.title}
               </Text>
             </Box>
             <Flex
               borderRadius="md"
               as="button"
-              bg={contextMenu.canClose === false ? 'gray.600' : 'gray.800'}
+              bg={contextMenu.canClose === false ? '#202128' : '#202128'}
               flex="1 15%"
               alignSelf="stretch"
               textAlign="center"

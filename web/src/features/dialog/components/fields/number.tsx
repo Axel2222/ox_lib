@@ -29,6 +29,7 @@ const NumberField: React.FC<Props> = (props) => {
       <Label label={props.row.label} description={props.row.description} />
       <InputGroup>
         <NumberInput
+          focusBorderColor="purple.200"
           onChange={(val: string) => props.handleChange(+val, props.index)}
           defaultValue={props.row.default}
           min={props.row.min}

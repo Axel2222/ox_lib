@@ -65,12 +65,13 @@ const InputDialog: React.FC = () => {
       <Modal isOpen={visible} onClose={handleClose} isCentered closeOnEsc closeOnOverlayClick={false} size="xs">
         <ModalOverlay />
         <ModalContent
+          borderRadius='2xl'
           onKeyDown={(e) => {
             if (e.key === 'Enter' && visible) return handleConfirm();
           }}
         >
-          <ModalHeader textAlign="center">{fields.heading}</ModalHeader>
-          <ModalBody fontFamily="Poppins" textAlign="left">
+          <ModalHeader borderTopRadius='2xl' bg='#202128' textAlign="center">{fields.heading}</ModalHeader>
+          <ModalBody fontFamily="Roboto" bg='#202128' textAlign="left">
             {fields.rows.map((row: IInput | ICheckbox | ISelect | INumber | ISlider, index) => (
               <React.Fragment key={`row-${index}`}>
                 {row.type === 'input' && (
@@ -90,11 +91,11 @@ const InputDialog: React.FC = () => {
               </React.Fragment>
             ))}
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter bg='#202128' borderBottomRadius='2xl'>
             <Button mr={3} onClick={handleClose}>
               {locale.ui.close}
             </Button>
-            <Button colorScheme="blue" onClick={handleConfirm}>
+            <Button colorScheme="purple" onClick={handleConfirm}>
               {locale.ui.confirm}
             </Button>
           </ModalFooter>
